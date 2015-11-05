@@ -1,0 +1,92 @@
+<div class="col-lg-8 col-lg-offset-2" ng-controller="UserCtrl as user">
+	<div class="panel panel-default">
+		  	<div class="panel-heading">
+				<h3 class="panel-title">Fazer Cadastro</h3>
+		  	</div>
+		  	<div class="panel-body">
+				<form role="form" novalidate ng-submit="user.createUser()" name="formSignup">
+
+						<div class="form-group" ng-class="{ 'has-error': formSignup.cpf.$invalid && formSignup.submitted}">
+						    <label for="cpf">CPF:</label>
+						    <input type="text" class="form-control" ng-model="user.userData.cpf" name="cpf" ui-mask="999.999.999-99" required  ng-cpf>
+						    <div ng-messages="formSignup.cpf.$error" ng-if="formSignup.submitted" class="help-block">
+	                            <div ng-message="required" >CPF inválido !</div>
+							</div>
+						</div>
+
+						<div class="form-group" ng-class="{ 'has-error': formSignup.nome.$invalid && formSignup.submitted}">
+					    	<label for="nome">Nome Completo:</label>
+					    	<input type="text" class="form-control" name="nome" ng-model="user.userData.nome" required>
+					    	<p class="help-block" ng-show="formSignup.nome.$invalid && formSignup.submitted">
+                                Required !
+                            </p>
+					  	</div>
+
+
+					  	<div class="form-group" ng-class="{ 'has-error': formSignup.dtaNasc.$invalid && formSignup.submitted}">
+					    	<label for="dtaNasc">Data Nascimento:</label>
+					    	<input type="date" class="form-control" name="dtaNasc" ng-model="user.userData.dtaNasc" required>
+					    	<p class="help-block" ng-show="formSignup.dtaNasc.$invalid && formSignup.submitted">
+                                Is invalid !
+                            </p>
+					  	</div>
+
+					  	<div class="form-group" ng-class="{ 'has-error': formSignup.email.$invalid && formSignup.submitted}">
+					    	<label for="email">Email:</label>
+					    	<div class="input-group">
+					    		<div class="input-group-addon">@</div>
+					    		<input type="email" class="form-control" name="email" ng-model="user.userData.email" required>
+					    	</div>
+					    	 <div ng-messages="formSignup.email.$error" ng-if="formSignup.submitted" class="help-block">
+	                            <div ng-message="required" >Requerido !</div>
+	                            <div ng-message="email" >Email inválido !</div>
+							</div>
+					  	</div>
+
+					  	<div class="form-group" ng-class="{ 'has-error': formSignup.genero.$invalid && formSignup.submitted}">
+					        <label for="genero">Gênero:</label>
+
+					            <select class="form-control" name="genero" ng-model="user.userData.genero" required>
+								  	<option value="M">Masculino</option>
+								  	<option value="F">Feminino</option>
+								</select>
+								<p class="help-block" ng-show="formSignup.email.$invalid && formSignup.submitted">
+	                                Requerido !
+	                            </p>
+
+					    </div>
+
+					  	<div class="form-group" ng-class="{ 'has-error': formSignup.password.$invalid && formSignup.submitted}">
+					    	<label for="password">Password:</label>
+					    	<input type="password" class="form-control" name="password" ng-model="user.userData.password" required>
+					    	<p class="help-block" ng-show="formSignup.password.$invalid && formSignup.submitted">
+                                Requerido !
+                            </p>
+					  	</div>
+
+					  	<div class="form-group" ng-class="{ 'has-error': formSignup.passwordconfirm.$invalid && formSignup.submitted}">
+					    	<label for="passwordconfirm">Confirm:</label>
+					    	<input type="password" class="form-control" ng-model="user.userData.passwordconfirm" name="passwordconfirm" match-password="password" required>
+					    	<div ng-messages="formSignup.passwordconfirm.$error" ng-if="formSignup.submitted" class="help-block">
+	                            <div ng-message="required" >Requerido !</div>
+						        <div ng-message="passwordMatch" >Password não confere !</div>
+	                        </div>
+					  	</div>
+
+					  	<div class="form-group" ng-class="{ 'has-error': formSignup.termo.$invalid && formSignup.submitted}">
+						  	<div class="checkbox">
+						    	<label><input type="checkbox" name="termo" ng-model="formSignup.userData.termo" required> Aceito os termos de uso</label>
+						  	</div>
+						  	<p class="help-block" ng-show="formSignup.termo.$invalid && formSignup.submitted">
+                                Aceite os termos de uso
+                            </p>
+						</div>
+
+
+				  	<button type="submit" class="btn btn-primary">Enviar</button>
+
+				</form>
+		  	</div>
+	</div>
+</div>
+

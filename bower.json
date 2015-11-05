@@ -1,0 +1,31 @@
+{
+  "name": "efood",
+  "version": "0.0.1",
+  "authors": [
+    "Gledson Cruz <gledson.cruz@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-route": "~1.4.7",
+    "angular-resource": "~1.4.7",
+    "angular-loading-bar": "~0.8.0",
+    "ngstorage": "~0.3.9",
+    "bootstrap": "~3.3.5",
+    "AngularJS-Toaster": "angularjs-toaster#~0.4.16",
+    "ng-cpf-cnpj": "~0.0.5",
+    "angular-ui-mask": "~1.5.1",
+    "angular-password": "~1.0.1",
+    "angular-messages": "~1.4.7"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4.7"
+  }
+}
