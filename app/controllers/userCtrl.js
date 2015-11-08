@@ -6,7 +6,7 @@ module.exports = function(app){
 	var controller = {};
 
 	controller.findAll = function(req, res){
-		User.find(function(err, users) {
+		User.find({}).select('nome email cpf dtaNasc genero role bloqueado created_at').exec(function(err, users) {
 		    if (err) {
 		      return res.send(err);
 		    }
@@ -48,17 +48,19 @@ module.exports = function(app){
 		};
 
 		User.create(dados, function(err, user){
+
+
 			if (err){
 				if (err.code == 11000)
-					return res.status(401).json({ success: false, message: 'Email or cpf already exists.'});
+					return res.send({ success: false, message: 'Email ou CPF já existe no sistema.'});
 				else
-					return res.send(err);
+					return res.send({ success:false, message: 'Um erro ocorreu'});
 			}
 			//var token = loginCtrl.createToken(user);
 
 			return res.json({
 				success: true,
-				message: 'User has been created !'
+				message: 'Usuário criado com sucesso !'
 				//token: token
 			})
 		});

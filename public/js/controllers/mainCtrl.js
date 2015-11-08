@@ -13,19 +13,25 @@ angular.module('mainCtrl', ['toaster', 'ngAnimate'])
 		vm.loggedIn = Auth.isLoggedIn();
 
 		if (vm.loggedIn){
-			if (next.templateUrl === "partials/login.html" || next.templateUrl === "partials/signup.html"){
-				Auth.getUser()
+			Auth.getUser()
 				.then(function(data){
-					vm.user = data.data;
-				});
-				$location.path('/dashboard');
+				vm.user = data.data;
+				if (next.templateUrl === "partials/users.html"){
+				//console.log('Role: ' +vm.user.role);
+				if (vm.user.role == "admin"){
+					$location.path('/users');
+				} else {
 
-			} else {
-				Auth.getUser()
-				.then(function(data){
-					vm.user = data.data;
-				});
+					$location.path('/dashboard');
+				}
 			}
+			});
+			if (next.templateUrl === "partials/login.html" || next.templateUrl === "partials/signup.html"){
+				$location.path('/dashboard');
+			}
+
+
+
 
 		} else {
 			if (next.templateUrl === "partials/signup.html"){
@@ -33,9 +39,7 @@ angular.module('mainCtrl', ['toaster', 'ngAnimate'])
 			} else {
 				$location.path('/login');
 			}
-
 		}
-
 	});
 
 	vm.doLogin = function(){
@@ -50,6 +54,7 @@ angular.module('mainCtrl', ['toaster', 'ngAnimate'])
 				Auth.getUser()
 					.then(function(data){
 						vm.user = data.data;
+						//console.log(vm.user.role);
 					});
 				if (data.success){
 					$location.path('/dashboard');
@@ -76,5 +81,4 @@ angular.module('mainCtrl', ['toaster', 'ngAnimate'])
 		Auth.logout();
 	}
 
-
-})
+});

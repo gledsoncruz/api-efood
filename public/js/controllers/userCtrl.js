@@ -1,35 +1,55 @@
 'use strict';
 
 angular.module('userCtrl', ['userService', 'toaster', 'ngPassword', 'ngMessages'])
+.filter('offset', function() {
+    return function(input, start) {
+        if (!input || !input.length) { return; }
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+})
 
-.controller('UserCtrl', function (User, $location, toaster, $scope) {
+.controller('UserCtrl', function (UserFactory, $location, toaster, $scope) {
 
 	var vm = this;
 
-	vm.createUser = function(){
+	vm.getUsers = function(){
+		UserFactory.getAllUsers()
+			.success(function(data){
+				vm.users = data;
+				$scope.currentPage = 1;
+			    $scope.itemsPerPage = 10;
+			    $scope.maxSize = 10;
+			    $scope.totalItems = vm.users.length;
+			    $scope.numPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
 
+			});
+	}
+
+
+	vm.create = function(){
 
 		if ($scope.formSignup.$valid){
 
 			vm.userData.role = "gerente";
 
-			User.createUser(vm.userData)
+			UserFactory.createUser(vm.userData)
 				.success(function(data){
-					var errorCount = Object.keys(data.errors).length;
+					if (data.success){
 
-					if(!errorCount){
-						console.log(Object.keys(data.errors).length);
-						console.log('success');
-
-					} else {
-						console.log(Object.keys(data.errors).length);
-						console.log('erro');
 						toaster.pop({
-			                type: 'error',
-			                title: 'Error',
+			                type: 'success',
+			                title: 'Sucesso',
 			                body: data.message,
 			                showCloseButton: true
-			            });
+		            	});
+					} else {
+						toaster.pop({
+			                type: 'error',
+			                title: 'Erro',
+			                body: data.message,
+			                showCloseButton: true
+		            	});
 					}
 				});
 		} else {

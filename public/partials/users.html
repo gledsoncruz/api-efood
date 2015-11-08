@@ -1,0 +1,47 @@
+<div class="panel panel-default" ng-controller="UserCtrl as user" ng-init="user.getUsers()">
+	<div class="panel-heading">
+		<h3 class="panel-title">Usuários</h3>
+	</div>
+  	<div class="panel-body">
+  		<div class="row">
+	        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+		        <div class="input-group">
+			        <span class="input-group-addon" id="sizing-addon1">Consultar</span>
+			        <input ng-model="filtro" type="text" class="form-control" placeholder="Digite um nome" aria-describedby="sizing-addon1">
+		        </div>
+	        </div>
+	    </div>
+	    <br/>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<tr>
+							<th>Nome</th>
+							<th>Email</th>
+							<th>Role</th>
+							<th>Dta Nasc.</th>
+							<th>Bloqueado?</th>
+							<th>Dta Registro</th>
+						</tr>
+						<tr ng-repeat="user in user.users | filter: filtro | offset: (currentPage - 1) * itemsPerPage | limitTo:itemsPerPage">
+							<td>{{user.nome}}</td>
+							<td>{{user.email}}</td>
+							<td>{{user.role}}</td>
+							<td>{{user.dtaNasc | date:'dd/MM/yyyy'}}</td>
+							<td>{{user.bloqueado}}</td>
+							<td>{{user.created_at | date:'dd/MM/yyyy'}}</td>
+						</tr>
+					</table>
+				</div>
+
+			    <uib-pagination total-items="totalItems"
+			        items-per-page= "itemsPerPage"
+			        ng-model="currentPage"
+			        class="pagination-sm"
+			        max-size="maxSize"></uib-pagination>
+			    <pre>Página {{currentPage}} / {{numPages}} em um total de {{totalItems}} registros</pre>
+			</div>
+		</div>
+  	</div>
+</div>

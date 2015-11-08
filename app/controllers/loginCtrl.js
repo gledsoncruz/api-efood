@@ -11,7 +11,9 @@ module.exports = function(app){
 		var token = jsonwebtoken.sign({
 			id: user._id,
 			nome: user.nome,
-			email: user.email
+			email: user.email,
+			role: user.role,
+			bloqueado: user.bloqueado
 		}, efoodToken, {
 			expiresIn: 1440
 		});
@@ -47,7 +49,7 @@ module.exports = function(app){
 		    return res.sendStatus(401);
 		}
 
-		User.findOne({email: email}).select('nome email password').exec(function (err, user) {
+		User.findOne({email: email}).select('nome email password role bloqueado').exec(function (err, user) {
 
 			if (err) throw err;
 
@@ -69,7 +71,7 @@ module.exports = function(app){
 					})
 				}
 			} else {
-				res.send({ message: 'User blocked ! Please, contact Administrator'})
+				res.send({ message: 'Usuário bloqueado, entre em contato com o administrador'})
 			}
 		});
 	}

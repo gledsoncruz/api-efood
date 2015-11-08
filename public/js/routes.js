@@ -17,13 +17,18 @@ angular.module('appRoutes', ['ngRoute'])
     .when('/signup', {
     	templateUrl: 'partials/signup.html'
     })
-    .when('/404', {
-    	templateUrl: 'partials/404.html'
+    .when('/users', {
+      templateUrl: 'partials/users.html'
+
+    })
+    .when('/me', {
+    	templateUrl: 'partials/me.html'
     })
     .otherwise({
         redirectTo: '/dashboard'
       });
 
     //$locationProvider.html5Mode(false);
+
 
 })

@@ -1,0 +1,19 @@
+body{
+	margin-top:50px;
+	padding-top: 70px;
+}
+.glyphicon { margin-right:10px; }
+.panel-body { padding:0px; }
+.panel-body .table {margin-bottom: 0px; }
+
+
+.sidebar-outer {
+    position: relative;
+}
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        display: inline-block;
+        min-width: 250px;
+    }
+}
