@@ -44,6 +44,7 @@ angular.module('authService', [])
 .factory('AuthToken', function($window){
 	var authTokenFactory = {};
 	authTokenFactory.getToken = function(){
+		//console.log($window.localStorage.getItem('token'));
 		return $window.localStorage.getItem('token');
 	}
 
@@ -71,7 +72,8 @@ angular.module('authService', [])
 	};
 
 	interceptorFactory.responseErro = function(response){
-		if (response.status == 404){
+		console.log('interceptorFactory.responseErro ');
+		if (response.status === 403){
 			$location.path('/404');
 
 			return $q.reject(response);

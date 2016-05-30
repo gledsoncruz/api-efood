@@ -2,7 +2,7 @@
 
 angular.module('mainCtrl', ['toaster', 'ngAnimate'])
 
-.controller('MainController', function(toaster, $scope, $route, $rootScope, $location, Auth){
+.controller('MainController', function($window, toaster, $scope, $route, $rootScope, $location, Auth){
 
 	var vm = this;
 
@@ -13,25 +13,19 @@ angular.module('mainCtrl', ['toaster', 'ngAnimate'])
 		vm.loggedIn = Auth.isLoggedIn();
 
 		if (vm.loggedIn){
+
 			Auth.getUser()
 				.then(function(data){
+
 				vm.user = data.data;
-				if (next.templateUrl === "partials/users.html"){
-				//console.log('Role: ' +vm.user.role);
-				if (vm.user.role == "admin"){
-					$location.path('/users');
-				} else {
-
-					$location.path('/dashboard');
-				}
-			}
+			},
+			function(error){
+				Auth.logout();
+				vm.user = '';
+				$location.path('/login');
+				$window.location.reload();
+				console.log('ERROR');
 			});
-			if (next.templateUrl === "partials/login.html" || next.templateUrl === "partials/signup.html"){
-				$location.path('/dashboard');
-			}
-
-
-
 
 		} else {
 			if (next.templateUrl === "partials/signup.html"){
@@ -79,6 +73,7 @@ angular.module('mainCtrl', ['toaster', 'ngAnimate'])
 
 	vm.doLogout = function(){
 		Auth.logout();
+		$window.location.reload();
 	}
 
 });

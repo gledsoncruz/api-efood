@@ -17,3 +17,8 @@ body{
         min-width: 250px;
     }
 }
+
+.ng-cloak {
+  /* Isso vai mudar para bloquear quando scope e angular estiverem prontos*/
+  display: none;
+}

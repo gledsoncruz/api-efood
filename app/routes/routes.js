@@ -23,6 +23,7 @@ module.exports = function(app){
 
 	router.route('/me')
 	   .get(function(req, res){
+	   	//console.log('response: '+ req);
 		res.json(req.decoded);
 	});
 

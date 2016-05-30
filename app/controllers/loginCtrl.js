@@ -30,7 +30,8 @@ module.exports = function(app){
 			if (user.role === 'admin'){
 				next();
 			} else {
-				res.send({success: false, message: 'Unauthorized'});
+				console.log(err);
+				res.status(403).send({success: false, message: 'Unauthorized'});
 			}
 			/*
 			for (i = 0; i < user.permissions.length; i++){
@@ -49,7 +50,7 @@ module.exports = function(app){
 		    return res.sendStatus(401);
 		}
 
-		User.findOne({email: email}).select('nome email password role bloqueado').exec(function (err, user) {
+		User.findOne({email: email, $or:[ {role: 'gerente'}, {role: 'admin'}]}).select('nome email password role bloqueado').exec(function (err, user) {
 
 			if (err) throw err;
 
@@ -80,17 +81,20 @@ module.exports = function(app){
 		//console.log('Validate jwt');
 
 		var token = req.body.token || req.params['token'] || req.headers['x-access-token'];
-
+		//console.log('API-Token: ' +token);
 		if (token){
 			jsonwebtoken.verify(token, efoodToken, function(err, decoded){
+				//console.log('Token: ' +token);
 				if (err){
 					res.status(403).send({success: false, message: 'Failed authenticate user'});
 				} else {
 					req.decoded = decoded;
+					//console.log(req.decoded);
 					next();
 				}
 			});
 		} else {
+
 			res.status(403).send({success: false, message: 'No token provided'});
 		}
 

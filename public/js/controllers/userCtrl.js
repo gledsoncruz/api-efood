@@ -15,7 +15,7 @@ angular.module('userCtrl', ['userService', 'toaster', 'ngPassword', 'ngMessages'
 
 	vm.getUsers = function(){
 		UserFactory.getAllUsers()
-			.success(function(data){
+			.then(function(data){
 				vm.users = data;
 				$scope.currentPage = 1;
 			    $scope.itemsPerPage = 10;
@@ -23,6 +23,10 @@ angular.module('userCtrl', ['userService', 'toaster', 'ngPassword', 'ngMessages'
 			    $scope.totalItems = vm.users.length;
 			    $scope.numPages = Math.ceil($scope.totalItems / $scope.itemsPerPage);
 
+			}, function(error){
+				
+				console.log('Acesso não permitido.');
+				$location.path('/dashboard');
 			});
 	}
 
