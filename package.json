@@ -18,7 +18,8 @@
     "helmet": "^0.12.0",
     "jsonwebtoken": "^5.4.1",
     "mongo-sanitize": "^1.0.0",
-    "mongoose": "^4.1.12"
+    "mongoose": "^4.1.12",
+    "bower": "1.7.9"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,6 @@
     "karma-jasmine": "^0.3.6"
   },
   "scripts": {
-  "postinstall": "bower install"
+    "postinstall": "./node_modules/bower/bin/bower install"
   }
 }
